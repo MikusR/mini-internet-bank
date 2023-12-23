@@ -10,12 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('crypto_accounts', function (Blueprint $table) {
             $table->id();
-            $table->string('account_from');
-            $table->string('account_to');
+            $table->string('name')->unique();
+            $table->integer('user_id');
+            $table->string('type');
             $table->string('currency');
-            $table->integer('amount');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('crypto_accounts');
     }
 };
