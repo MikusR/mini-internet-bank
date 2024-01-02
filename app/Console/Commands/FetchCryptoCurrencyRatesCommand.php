@@ -2,19 +2,17 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Currency;
+use App\Models\CryptoCurrency;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 
-class FetchCurrencyRatesCommand extends Command
+class FetchCryptoCurrencyRatesCommand extends Command
 {
 
-    protected $signature = 'currencies:fetch-rates';
+    protected $signature = 'crypto-currencies:fetch-rates';
 
-
-    protected $description = 'Fetch currency rates from Coinbase';
+    protected $description = 'Fetch crypto currency rates from Coinbase';
     private const BASE_CURRENCY = 'EUR';
-
 
     /**
      * Execute the console command.
@@ -25,10 +23,10 @@ class FetchCurrencyRatesCommand extends Command
         $response = $client->get('https://api.coinbase.com/v2/exchange-rates?currency=' . self::BASE_CURRENCY);
         $response = json_decode($response->getBody()->getContents());
         foreach ($response->data->rates as $symbol => $rate) {
-            if (!in_array($symbol, Currency::$validCurrencies)) {
+            if (!in_array($symbol, CryptoCurrency::$validCryptoCurrencies)) {
                 continue;
             }
-            Currency::updateOrCreate(
+            CryptoCurrency::updateOrCreate(
                 ['symbol' => $symbol],
                 ['rate' => $rate]
             );
