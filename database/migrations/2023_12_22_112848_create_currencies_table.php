@@ -11,12 +11,12 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('currencies', function (Blueprint $table) {
-            $table->id();
-            $table->string('symbol');
-            $table->string('name');
+            $table->string('symbol')->primary();
+            $table->decimal('rate', 16, 4);
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
