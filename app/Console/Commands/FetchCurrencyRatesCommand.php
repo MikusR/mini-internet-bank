@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Currency;
 use Illuminate\Console\Command;
 
 class FetchCurrencyRatesCommand extends Command
@@ -27,7 +28,14 @@ class FetchCurrencyRatesCommand extends Command
     {
         $client = new \GuzzleHttp\Client();
         $response = $client->get('https://api.coinbase.com/v2/exchange-rates?currency=EUR');
-        var_dump($response->getBody()->getContents());
+        $response = json_decode($response->getBody()->getContents());
+        foreach ($response->data->rates as $symbol => $rate) {
+            \App\Models\Currency::updateOrCreate(
+                ['symbol' => $symbol],
+                ['rate' => $rate]
+            );
+        }
+        var_dump(Currency::first());
         return 0;
     }
 }
