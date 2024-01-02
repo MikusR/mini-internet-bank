@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('currencies', function (Blueprint $table) {
             $table->string('symbol')->primary();
-            $table->decimal('rate', 16, 4);
+            $table->double('rate');
             $table->timestamps();
         });
     }
