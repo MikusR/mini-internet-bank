@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\CryptoCurrency;
+use App\Models\Currency;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::get('/test', function () {
-    return \App\Models\Currency::first();
-})->middleware(['auth', 'verified']);
+    return view('currency.rates', [
+        'currencies' => Currency::all()->sortBy('rate'),
+        'cryptoCurrencies' => CryptoCurrency::all()
+    ]);
+});
 
 require __DIR__ . '/auth.php';
