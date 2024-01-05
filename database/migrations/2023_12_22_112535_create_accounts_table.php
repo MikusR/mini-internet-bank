@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->integer('user_id');
             $table->string('type');
             $table->string('currency');
