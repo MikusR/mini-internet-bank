@@ -16,8 +16,10 @@ class Account extends Model
         'currency',
     ];
 
+
     public function transactions(): HasMany
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class, 'account_from')
+            ->orWhere('account_to', $this->id);
     }
 }

@@ -15,5 +15,6 @@ class Transaction extends Model
         'currency_from',
         'currency_to',
         'amount',
+        'note',
     ];
 }
