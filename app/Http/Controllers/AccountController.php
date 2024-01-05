@@ -13,7 +13,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        //
+        return 'ArticleController::index';
     }
 
     /**
@@ -21,7 +21,7 @@ class AccountController extends Controller
      */
     public function create()
     {
-        //
+        return view('accounts.create');
     }
 
     /**
@@ -29,7 +29,9 @@ class AccountController extends Controller
      */
     public function store(StoreAccountRequest $request)
     {
-        //
+        $account = (new Account())->fill($request->all());
+        $account->user_id = auth()->id();
+        $account->save();
     }
 
     /**
