@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        return 'ArticleController::index';
+        return view('accounts.index', [
+            'accounts' => Account::all()
+        ]);
     }
 
     /**
@@ -27,11 +31,12 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAccountRequest $request)
+    public function store(StoreAccountRequest $request): RedirectResponse
     {
         $account = (new Account())->fill($request->all());
         $account->user_id = auth()->id();
         $account->save();
+        return redirect()->route('accounts.index');
     }
 
     /**
