@@ -14,8 +14,10 @@ return new class extends Migration {
             $table->id();
             $table->string('account_from');
             $table->string('account_to');
-            $table->string('currency');
+            $table->string('currency_from');
+            $table->string('currency_to');
             $table->integer('amount');
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }
