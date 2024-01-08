@@ -16,7 +16,7 @@ class AccountController extends Controller
     public function index(): View
     {
         return view('accounts.index', [
-            'accounts' => Account::all()
+            'accounts' => Account::all()->where('user_id', auth()->id()),
         ]);
     }
 
