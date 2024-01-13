@@ -36,7 +36,7 @@ class AccountController extends Controller
         $account = (new Account())->fill($request->all());
         $account->user_id = auth()->id();
         $account->save();
-        return redirect()->route('accounts.index');
+        return redirect()->route('accounts.index')->with('success', 'Account created.');
     }
 
     /**
@@ -44,7 +44,9 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        //
+        return view('accounts.show', [
+            'account' => $account,
+        ]);
     }
 
     /**
